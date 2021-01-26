@@ -1,0 +1,60 @@
+.card {
+    width: 100%;
+    margin-bottom: 60px;
+}
+form.item-form {
+    margin-top: 16px;
+}
+h2.shop-h2 {
+    text-align: center;
+    padding: 30px 0;
+    background: #efefef;
+    border-radius: 6px;
+    margin-bottom: 60px;
+    color: #848484;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+li.list-group-item.active a {
+    color: #fff;
+}
+li.list-group-item:hover {
+    background: #076fae;
+}
+li.list-group-item:hover a{
+    color: #fff;
+}
+.col-12.right-bott {
+    text-align: right;
+    margin: 30px 60px 30px 0;
+}
+button.btn.btn-success a {
+    color: #fff;
+}
+td.table-buttons {
+    display: flex;
+}
+td.table-buttons a.btn.btn-primary {
+    margin: 0 5px;
+}
+h3.center-title {
+    text-align: center;
+    margin: 20px 0 60px;
+}
+.paginate {
+    width: 100%;
+    margin: 20px;
+}
+.alert.alert-success {
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+}
+img.card-img-edit {
+    width: 70px;
+    margin: 10px;
+}
+span.span-title {
+    font-weight: 900;
+    color: #3cb003;
+}
