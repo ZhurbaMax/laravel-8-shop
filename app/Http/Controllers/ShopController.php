@@ -38,7 +38,6 @@ class ShopController extends Controller
     public function brandFilter(Request $request)
     {
         //
-
     }
 
 }
