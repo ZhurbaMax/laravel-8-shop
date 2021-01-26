@@ -24,7 +24,7 @@ Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->na
 //Route::get('/shop', [App\Http\Controllers\ShopController::class, 'showBrands']);
 Route::get('/search-title', [App\Http\Controllers\ShopController::class, 'titleFilter']);
 Route::get('/filter-price', [App\Http\Controllers\ShopController::class, 'filterPrice']);
-Route::get('/filter-brand', [App\Http\Controllers\ShopController::class, 'filterPrice']);
+Route::get('/filter-brand', [App\Http\Controllers\ShopController::class, 'brandFilter']);
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
 Route::post('/admin', [App\Http\Controllers\AdminController::class, 'create']);

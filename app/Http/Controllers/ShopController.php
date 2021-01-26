@@ -37,7 +37,9 @@ class ShopController extends Controller
 
     public function brandFilter(Request $request)
     {
-        //
+        $checkedBrands = $request->brand;
+        $products = Catalog::whereIn('brand', $checkedBrands)->get();
+        return view('layouts.search-title', ['products' => $products]);
     }
 
 }

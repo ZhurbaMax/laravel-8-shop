@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="cantainer">
-        <h2 class="shop-h2">Search for title</h2>
+        <h2 class="shop-h2">Search results</h2>
         <div class="row">
             <div class="col-12">
                 <div class="row">
