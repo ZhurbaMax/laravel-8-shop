@@ -57,7 +57,6 @@ class AdminController extends Controller
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             ]);
-            $product->image->delete();
             $path = $request->file('image')->store('uploads', 'public');
             $product->image = $path;
         }

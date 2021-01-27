@@ -8,6 +8,11 @@
                     <li class="list-group-item"><a href="{{ route('admin') }}">List product</a></li>
                 </ul>
             </div>
+            @if(session()->get('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
             @foreach ($productUp as $prodUp )
                 <div class="col-9">
                     <h3 class="center-title">Edit <span class="span-title">  {{ $prodUp->title_product }}</span></h3>
