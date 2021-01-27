@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Catalog;
 use Illuminate\Http\Request;
+use App\Models\Shop;
 
 class AdminController extends Controller
 {
     public function admin()
     {
-        $products = Catalog::orderBy('id_product', 'desc')->paginate(6);
+        $products = Shop::orderBy('id', 'desc')->paginate(6);
         return view('admin', ['products' => $products]);
     }
 
@@ -20,30 +20,58 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $product = new Catalog;
-        $product->title_product = $request->input('title_product');
-        $product->price = $request->input('price');
-        $product->brand = $request->input('brand');
-        $product->description = $request->input('description');
-        $product->image = $request->file('image')->store('uploads', 'public');
-        $product->save($request->all());
+        $request->validate([
+            'title_product' => 'required',
+            'price'         => 'required',
+            'brand'         => 'required',
+            'description'   => 'required',
+            'image'         => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $path = $request->file('image')->store('uploads', 'public');
+        $product = new Shop();
+        $product->title_product = $request->title_product;
+        $product->price = $request->price;
+        $product->brand = $request->brand;
+        $product->description = $request->description;
+        $product->image = $path;
+        $product->save();
         return redirect('admin')->with('success', 'Product added successfully');
     }
 
     public function editProduct($id)
     {
-        $productUp  = Catalog::where("id_product",$id)->get();
+        $productUp  = Shop::where("id",$id)->get();
         return view('admin.edit-product', ['productUp' => $productUp]);
     }
 
-    public function updateProduct(Request $request, $id)
+    public function updateProduct(Request $request, $id_product)
     {
-        //
+        $request->validate([
+            'title_product' => 'required',
+            'price'         => 'required',
+            'brand'         => 'required',
+            'description'   => 'required',
+        ]);
+        $product = Shop::find($id_product);
+        if($request->hasFile('image')){
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            $product->image->delete();
+            $path = $request->file('image')->store('uploads', 'public');
+            $product->image = $path;
+        }
+        $product->title_product = $request->title_product;
+        $product->price = $request->price;
+        $product->brand = $request->brand;
+        $product->description = $request->description;
+        $product->save();
+        return redirect('admin')->with('success', 'Product edited successfully');
     }
 
     public function destroy($id_product)
     {
-        Catalog::where("id_product",$id_product)->delete();
+        Shop::where("id",$id_product)->delete();
         return back()->with('success', 'Product removed successfully');
     }
 }

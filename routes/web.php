@@ -21,7 +21,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->name('shop');
-//Route::get('/shop', [App\Http\Controllers\ShopController::class, 'showBrands']);
 Route::get('/search-title', [App\Http\Controllers\ShopController::class, 'titleFilter']);
 Route::get('/filter-price', [App\Http\Controllers\ShopController::class, 'filterPrice']);
 Route::get('/filter-brand', [App\Http\Controllers\ShopController::class, 'brandFilter']);
@@ -31,7 +30,7 @@ Route::post('/admin', [App\Http\Controllers\AdminController::class, 'create']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'addProduct'])->name('addProduct');
 Route::get('/edit', [App\Http\Controllers\AdminController::class, 'edit'])->name('edit');
 Route::get('/admin/product/{id}/delete', [App\Http\Controllers\AdminController::class, 'destroy'])->name('products-destroy');
-Route::get('edit/{id}', [App\Http\Controllers\AdminController::class, 'editProduct']);
-Route::post('/update/{id}', [App\Http\Controllers\AdminController::class, 'updateProduct']);
+Route::get('/edit/{id}', [App\Http\Controllers\AdminController::class, 'editProduct']);
+Route::put('/update/{id}', [App\Http\Controllers\AdminController::class, 'updateProduct'])->name('edit.update');
 
 

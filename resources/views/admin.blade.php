@@ -38,14 +38,33 @@
                             <td>{{ $product->brand }}</td>
                             <td>{{ $product->description }} </td>
                             <td class="table-buttons">
-                                <a href="edit/{{ $product->id_product }}" class="btn btn-primary">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="/admin/product/{{$product->id_product}}/delete" class="btn btn-danger">
+                                    <a href="edit/{{ $product->id }}" class="btn btn-primary">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="button" class="btn btn-danger">
+                                            <a href="/admin/product/{{$product->id}}/delete" class="modal-link"> Yes</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     </tbody>
                 </table>

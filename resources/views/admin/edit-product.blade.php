@@ -11,8 +11,9 @@
             @foreach ($productUp as $prodUp )
                 <div class="col-9">
                     <h3 class="center-title">Edit <span class="span-title">  {{ $prodUp->title_product }}</span></h3>
-                    <form method="post" action="/update/{{ $prodUp->id_product }}" enctype="multipart/form-data">
+                    <form action="{{ route('edit.update', $prodUp->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <input type="hidden" name="id" value="{{ $prodUp->id_product }}" >
                         <div class="form-group">
                             <label for="exampleInputEmail1">Title product</label>
