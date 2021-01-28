@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shop;
+use App\Http\Requests\AdminShopProduct;
 
 class AdminController extends Controller
 {
@@ -18,15 +19,8 @@ class AdminController extends Controller
         return view('admin.create');
     }
 
-    public function create(Request $request)
+    public function create(AdminShopProduct $request)
     {
-        $request->validate([
-            'title_product' => 'required',
-            'price'         => 'required',
-            'brand'         => 'required',
-            'description'   => 'required',
-            'image'         => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
         $path = $request->file('image')->store('uploads', 'public');
         $product = new Shop();
         $product->title_product = $request->title_product;
@@ -44,19 +38,11 @@ class AdminController extends Controller
         return view('admin.edit-product', ['productUp' => $productUp]);
     }
 
-    public function updateProduct(Request $request, $id_product)
+    public function updateProduct(AdminShopProduct $request, $id_product)
     {
-        $request->validate([
-            'title_product' => 'required',
-            'price'         => 'required',
-            'brand'         => 'required',
-            'description'   => 'required',
-        ]);
+
         $product = Shop::find($id_product);
         if($request->hasFile('image')){
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
             $path = $request->file('image')->store('uploads', 'public');
             $product->image = $path;
         }
