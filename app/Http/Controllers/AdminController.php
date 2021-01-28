@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Http\Requests\AdminShopProduct;
 
+
 class AdminController extends Controller
 {
     public function admin()
@@ -40,9 +41,11 @@ class AdminController extends Controller
 
     public function updateProduct(AdminShopProduct $request, $id_product)
     {
-
         $product = Shop::find($id_product);
         if($request->hasFile('image')){
+            $pathOld = $product->image;
+            $oldImg = public_path('storage/' . $pathOld);
+            \File::delete($oldImg);
             $path = $request->file('image')->store('uploads', 'public');
             $product->image = $path;
         }
