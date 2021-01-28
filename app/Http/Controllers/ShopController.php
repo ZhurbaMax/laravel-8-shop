@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 
 class ShopController extends Controller
 {
@@ -11,6 +12,9 @@ class ShopController extends Controller
     {
         $products = Shop::orderBy('id', 'desc')->paginate(6);
         $brands = Shop::distinct()->get('brand');
+        if (count($brands) == 0 ){
+            $brands = Null;
+        }
         return view('shop', ['products' => $products, 'brands' => $brands,]);
     }
 

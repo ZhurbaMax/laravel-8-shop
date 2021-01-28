@@ -25,8 +25,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Go</button>
                 </form>
-
-                {{ !isset($brands) }}
                 @if(isset($brands))
                     @include('layouts.brand')
                 @endif
