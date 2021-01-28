@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Http\Requests\AdminShopProduct;
+use App\Http\Requests\AdminImageProduct;
 
 
 class AdminController extends Controller
@@ -39,7 +40,7 @@ class AdminController extends Controller
         return view('admin.edit-product', ['productUp' => $productUp]);
     }
 
-    public function updateProduct(AdminShopProduct $request, $id_product)
+    public function updateProduct(AdminImageProduct $request, $id_product)
     {
         $product = Shop::find($id_product);
         if($request->hasFile('image')){
@@ -59,6 +60,10 @@ class AdminController extends Controller
 
     public function destroy($id_product)
     {
+        $product = Shop::find($id_product);
+        $pathOld = $product->image;
+        $oldImg = public_path('storage/' . $pathOld);
+        \File::delete($oldImg);
         Shop::where("id",$id_product)->delete();
         return back()->with('success', 'Product removed successfully');
     }

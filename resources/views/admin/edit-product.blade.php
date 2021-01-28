@@ -8,9 +8,13 @@
                     <li class="list-group-item"><a href="{{ route('admin') }}">List product</a></li>
                 </ul>
             </div>
-            @if(session()->get('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             @foreach ($productUp as $prodUp )
