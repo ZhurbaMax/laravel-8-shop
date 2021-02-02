@@ -72,10 +72,10 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/shop">Shop</a>
+                                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#cart">Cart</a>
+                                <a class="nav-link" href="{{ route('cart.page') }}">Cart</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin') }}">Admin</a>

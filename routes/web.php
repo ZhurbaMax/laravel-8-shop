@@ -13,18 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Auth::routes();
-
+// Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+//Shope
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->name('shop');
 Route::get('/search-title', [App\Http\Controllers\ShopController::class, 'titleFilter']);
 Route::get('/filter-price', [App\Http\Controllers\ShopController::class, 'filterPrice']);
 Route::get('/filter-brand', [App\Http\Controllers\ShopController::class, 'brandFilter']);
-
+//Admin
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
 Route::post('/admin', [App\Http\Controllers\AdminController::class, 'create']);
 Route::get('/admin/create', [App\Http\Controllers\AdminController::class, 'addProduct'])->name('addProduct');
@@ -33,4 +32,7 @@ Route::get('/admin/product/{id}/delete', [App\Http\Controllers\AdminController::
 Route::get('/edit/{id}', [App\Http\Controllers\AdminController::class, 'editProduct']);
 Route::put('/update/{id}', [App\Http\Controllers\AdminController::class, 'updateProduct'])->name('edit.update');
 
-
+//Cart
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.page');
+Route::get('/cart/order', [App\Http\Controllers\CartController::class, 'order'])->name('cart.order');
+Route::post('/cart/add/{id}', [App\Http\Controllers\CartController::class, 'cartAdd'])->name('cart.add');

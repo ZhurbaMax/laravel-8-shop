@@ -22,19 +22,19 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="exampleInputEmail1">Title product</label>
-                    <input type="text" name="title_product" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="title_product" value="{{ old('title_product') }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Price</label>
-                    <input type="text" name="price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="price" value="{{ old('price') }}"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Brand</label>
-                    <input type="text" name="brand" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="brand" value="{{ old('brand') }}"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="text" name="description" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="description" value="{{ old('description') }}"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Upload image</label>

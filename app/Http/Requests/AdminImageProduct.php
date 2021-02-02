@@ -24,10 +24,10 @@ class AdminImageProduct extends FormRequest
     public function rules()
     {
         return [
-            'title_product' => 'required',
-            'price'         => 'required',
-            'brand'         => 'required',
-            'description'   => 'required',
+            'title_product' => 'required|max:100',
+            'price'         => 'required|numeric',
+            'brand'         => 'required|max:100',
+            'description'   => 'required|max:100',
             'image'         => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }

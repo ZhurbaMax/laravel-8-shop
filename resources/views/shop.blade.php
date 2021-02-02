@@ -40,9 +40,9 @@
                             <h5 class="card-title"> {{ $product->title_product }} </h5>
                             <p class="card-text brand"> {{ $product->brand }} </p>
                             <p class="card-text"> {{ $product->description }} </p>
-                            <a  class="btn btn-primary">Price {{ $product->price }} $</a>
-                            <form method="post" class="item-form">
-                                <input type="hidden" name="id_card"  value=" {{ $product->id_product }} " class="form-control" >
+                          <a class="btn btn-primary">Price {{ $product->price }} $</a>
+                            <form action="{{ route('cart.add', $product) }}" method="post">
+                                @csrf
                                 <button type="submit" class="btn btn-success">Add card</button>
                             </form>
                         </div>

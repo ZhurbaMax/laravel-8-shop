@@ -41,7 +41,11 @@ class ShopController extends Controller
     public function brandFilter(Request $request)
     {
         $checkedBrands = $request->brand;
-        $products = Shop::whereIn('brand', $checkedBrands)->get();
-        return view('layouts.search-title', ['products' => $products]);
+        if (!isset($checkedBrands)){
+            return redirect('shop');
+        }else{
+            $products = Shop::whereIn('brand', $checkedBrands)->get();
+            return view('layouts.search-title', ['products' => $products]);
+        }
     }
 }

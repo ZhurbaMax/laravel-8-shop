@@ -61,3 +61,9 @@ span.span-title {
 a.modal-link {
     color: #fff;
 }
+form button.btn.btn-success {
+    margin-top: 20px;
+}
+img.card-img-top.cart-img {
+    width: 50px;
+}
