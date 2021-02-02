@@ -67,3 +67,11 @@ form button.btn.btn-success {
 img.card-img-top.cart-img {
     width: 50px;
 }
+.text-body {
+    margin: 20px 0;
+    padding: 40px 10px;
+    border-top: 1px solid #7c7a7a;
+    border-bottom: 1px solid #7c7a7a;
+    font-size: 16px;
+    background: #ededed75;
+}

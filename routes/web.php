@@ -36,3 +36,4 @@ Route::put('/update/{id}', [App\Http\Controllers\AdminController::class, 'update
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.page');
 Route::get('/cart/order', [App\Http\Controllers\CartController::class, 'order'])->name('cart.order');
 Route::post('/cart/add/{id}', [App\Http\Controllers\CartController::class, 'cartAdd'])->name('cart.add');
+
