@@ -11,11 +11,14 @@ class ShopController extends Controller
     public function getShop()
     {
         $products = Shop::orderBy('id', 'desc')->paginate(6);
-        $brands = Shop::distinct()->get('brand');
-        if (count($brands) == 0 ){
-            $brands = Null;
-        }
-        return view('shop', ['products' => $products, 'brands' => $brands,]);
+//      $brands = Shop::distinct()->get('brand');
+////        if (count($brands) == 0 ){
+////            $brands = Null;
+////        }
+///
+        $brand = new ShopController();
+        $brands = $brand->brandAdd();
+        return view('shop', ['products' => $products, 'brands' => $brands]);
     }
 
     public function titleFilter(Request $request)
@@ -23,7 +26,9 @@ class ShopController extends Controller
         $search = new Shop;
         $search->title_product = $request->input('title');
         $products = Shop::where('title_product', 'LIKE', "%{$search->title_product}%")->get();
-        return view('layouts.search-title', ['products' => $products]);
+        $brand = new ShopController();
+        $brands = $brand->brandAdd();
+        return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
     }
 
     public function filterPrice(Request $request)
@@ -35,7 +40,9 @@ class ShopController extends Controller
         }else{
             $products = Shop::orderBy('price',  'asc')->get();
         }
-        return view('layouts.search-title', ['products' => $products]);
+        $brand = new ShopController();
+        $brands = $brand->brandAdd();
+        return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
     }
 
     public function brandFilter(Request $request)
@@ -45,7 +52,18 @@ class ShopController extends Controller
             return redirect('shop');
         }else{
             $products = Shop::whereIn('brand', $checkedBrands)->get();
-            return view('layouts.search-title', ['products' => $products]);
+            $brand = new ShopController();
+            $brands = $brand->brandAdd();
+            return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
         }
+    }
+
+    public function brandAdd()
+    {
+        $brands = Shop::distinct()->get('brand');
+        if (count($brands) == 0 ){
+            $brands = Null;
+        }
+        return $brands;
     }
 }

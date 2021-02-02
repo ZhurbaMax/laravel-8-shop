@@ -40,7 +40,7 @@
                             <h5 class="card-title"> {{ $product->title_product }} </h5>
                             <p class="card-text brand"> {{ $product->brand }} </p>
                             <p class="card-text"> {{ $product->description }} </p>
-                          <a class="btn btn-primary">Price {{ $product->price }} $</a>
+                            <a class="btn btn-primary">Price {{ $product->price }} $</a>
                             <form action="{{ route('cart.add', $product) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Add card</button>
