@@ -11,11 +11,6 @@ class ShopController extends Controller
     public function getShop()
     {
         $products = Shop::orderBy('id', 'desc')->paginate(6);
-//      $brands = Shop::distinct()->get('brand');
-////        if (count($brands) == 0 ){
-////            $brands = Null;
-////        }
-///
         $brand = new ShopController();
         $brands = $brand->brandAdd();
         return view('shop', ['products' => $products, 'brands' => $brands]);

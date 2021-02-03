@@ -16,12 +16,6 @@ class CartController extends Controller
         }else{
             return view('layouts.basket_is_empty');
         }
-
-    }
-
-    public function order()
-    {
-        return view('order');
     }
 
     public function cartAdd($id_product)
@@ -34,7 +28,24 @@ class CartController extends Controller
         }else{
             $order = Order::find($orderId);
         }
-        $order->products()->attach($id_product);
-        return view('cart', compact('order'));
+        if ($order->products->contains($id_product)){
+            $pivotRow = $order->products()->where('shop_id', $id_product)->first()->pivot;
+            $pivotRow->count++;
+            $pivotRow->update();
+        }else{
+            $order->products()->attach($id_product);
+        }
+        return back()->with('success', 'Product added to cart successfully');
+    }
+
+    public function cartRemove($id_product)
+    {
+        $orderId = session('orderId');
+        if (is_null($orderId)){
+            return view('cart', compact('order'));
+        }
+        $order = Order::find($orderId);
+        $order->products()->detach($id_product);
+        return back()->with('success', 'The product has been successfully removed from the cart');
     }
 }

@@ -16,4 +16,9 @@ class Shop extends Model
         'image',
         'description'
     ];
+
+    public function totalCostProductCart($count)
+    {
+        return $this->price * $count;
+    }
 }

@@ -1,15 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+        <div class="shop-add-text">
+            @if(session()->get('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+        </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-xl-12">
                 <div class="h2 mt-5 mb-5" style="text-align: center" > Card </div>
             </div>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Price</th>
                 <th scope="col">Image</th>
@@ -20,14 +26,13 @@
             <tbody>
             @foreach ($order->products as $product )
                 <tr>
-                    <th scope="row">1</th>
                     <td>{{ $product->title_product }}</td>
-                    <td>{{ $product->price }} $</td>
+                    <td>{{ $product->totalCostProductCart($product->pivot->count) }} $</td>
                     <td><img class="card-img-top cart-img" src="{{ asset('storage') . '/'. $product->image }}"></td>
-                    <td> 1 </td>
+                    <th>{{ $product->pivot->count }}</th>
                     <td>
-                        <form method="post" class="item-form">
-                            <input type="hidden" name="id_delete"  value="" class="form-control" >
+                        <form method="post" class="item-form" action="{{ route('cart.remove', $product) }}">
+                            @csrf
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
@@ -35,4 +40,10 @@
             @endforeach
             </tbody>
         </table>
+        <div class="order-total">
+            <p>Order total: <span class="total-price">{{ $order->totalSumCart() }}</span></p>
+            <div class="col-xl-12 right-bott">
+                <button type="button" class="btn btn-success"><a href="{{ route('cart.checkout') }}">Сheckout</a></button>
+            </div>
+        </div>
 @endsection

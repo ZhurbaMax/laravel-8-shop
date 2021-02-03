@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shop;
+use App\Models\Order;
 use App\Http\Requests\AdminShopProduct;
 use App\Http\Requests\AdminImageProduct;
 
@@ -66,5 +67,17 @@ class AdminController extends Controller
         \File::delete($oldImg);
         Shop::where("id",$id_product)->delete();
         return back()->with('success', 'Product removed successfully');
+    }
+
+    public function orders()
+    {
+        $orders = Order::orderBy('id', 'desc')->paginate(10);
+        return view('admin.orders', ['orders' => $orders]);
+    }
+
+    public function detailOrder($id)
+    {
+        $orderDetail  = Order::where("id",$id)->get();
+        return view('admin.order-details', ['orderDetail' => $orderDetail]);
     }
 }

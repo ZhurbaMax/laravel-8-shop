@@ -4,8 +4,8 @@
     <div class="cantainer">
         <h2 class="shop-h2">Search results</h2>
         <div class="row">
-            <div class="col-3">
-                <div class="col-12">
+            <div class="col-xl-3">
+                <div class="col-xl-12">
                     <form method="get" action="/search-title">
                         {{ csrf_field() }}
                         <div class="form-group">
@@ -30,10 +30,10 @@
                     @endif
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-xl-9">
                 <div class="row">
                     @foreach ($products as $product )
-                        <div class="col-3">
+                        <div class="col-xl-3">
                             <div class="card">
                                 <img class="card-img-top" src=" {{ asset('storage') . '/'. $product->image }} ">
                                 <div class="card-body">

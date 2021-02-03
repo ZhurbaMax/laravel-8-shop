@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="row">
-            <div class="col-12 right-bott">
+            <div class="col-xl-12 right-bott">
                 <button type="button" class="btn btn-success"><a href="{{ route('addProduct') }}">Create product</a></button>
             </div>
             @if(session()->get('success'))
@@ -12,12 +12,13 @@
             @endif
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-xl-3">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="{{ route('admin') }}">List product</a></li>
+                    <li class="list-group-item"><a href="{{ route('admin.orders') }}">Orders</a></li>
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-xl-9">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
