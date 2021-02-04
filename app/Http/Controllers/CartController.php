@@ -12,7 +12,10 @@ class CartController extends Controller
         $orderId = session('orderId');
         if (!is_null($orderId)){
             $order = Order::find($orderId);
-            return view('cart', compact('order'));
+            if (count($order->products) == 0){
+                return view('layouts.basket_is_empty');
+            }
+             return view('cart', compact('order'));
         }else{
             return view('layouts.basket_is_empty');
         }
@@ -35,6 +38,7 @@ class CartController extends Controller
         }else{
             $order->products()->attach($id_product);
         }
+        //session(['orderCount'=>count($order->products)]);
         return back()->with('success', 'Product added to cart successfully');
     }
 

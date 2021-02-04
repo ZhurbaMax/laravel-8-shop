@@ -22,4 +22,10 @@ class Order extends Model
         }
         return $sum;
     }
+
+    public function countCart()
+    {
+        $count = count($this->products());
+        return $count;
+    }
 }

@@ -43,7 +43,7 @@
         <div class="order-total">
             <p>Order total: <span class="total-price">{{ $order->totalSumCart() }}</span></p>
             <div class="col-xl-12 right-bott">
-                <button type="button" class="btn btn-success"><a href="{{ route('cart.checkout') }}">Сheckout</a></button>
+                <a class="btn btn-success" href="{{ route('cart.checkout') }}">Сheckout</a>
             </div>
         </div>
 @endsection

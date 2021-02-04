@@ -34,11 +34,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -86,7 +81,9 @@
                                 <a class="nav-link" href="{{ route('admin') }}">Admin</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cart.page') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <a class="nav-link" href="{{ route('cart.page') }}">
+                                    <span class="count-header-cart">0</span>
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </li>
                         @endguest
@@ -94,7 +91,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             <div class="container">
                 @yield('content')

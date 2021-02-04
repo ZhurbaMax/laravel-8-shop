@@ -6,16 +6,12 @@
         <div class="row">
             <div class="col-xl-3">
                 <div class="col-xl-12">
-                    <form method="get" action="/search-title">
+                    <form method="get" action="{{ route('filter.shop') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Search for title</label>
-                            <input type="title" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
+                            <input type="text" name="title_product" value="{{ old('title_product') }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
                         </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                    <form method="get" action="/filter-price">
-                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Filter price</label>
                             <select class="form-control"  name="filter_price" id="exampleFormControlSelect1">
@@ -23,11 +19,11 @@
                                 <option>dear first</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Go</button>
+                        @if(isset($brands))
+                            @include('layouts.brand')
+                        @endif
+                        <button type="submit" class="btn btn-primary">Filter</button>
                     </form>
-                    @if(isset($brands))
-                        @include('layouts.brand')
-                    @endif
                 </div>
             </div>
             <div class="col-xl-9">

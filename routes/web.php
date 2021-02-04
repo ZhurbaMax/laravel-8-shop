@@ -21,9 +21,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Shope
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->name('shop');
-Route::get('/search-title', [App\Http\Controllers\ShopController::class, 'titleFilter']);
-Route::get('/filter-price', [App\Http\Controllers\ShopController::class, 'filterPrice']);
-Route::get('/filter-brand', [App\Http\Controllers\ShopController::class, 'brandFilter']);
+Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 'getProduct'])->name('get.product');
+Route::get('/filter', [App\Http\Controllers\ShopController::class, 'getShop'])->name('filter.shop');
 
 //Admin
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');

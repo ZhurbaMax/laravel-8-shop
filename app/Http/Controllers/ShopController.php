@@ -8,49 +8,28 @@ use phpDocumentor\Reflection\Types\Null_;
 
 class ShopController extends Controller
 {
-    public function getShop()
+    public function getShop(Request $request)
     {
-        $products = Shop::orderBy('id', 'desc')->paginate(6);
+        $productQuery = Shop::query();
+        if ($request->filled('title_product')){
+            $productQuery->where('title_product', 'like', "%$request->title_product%");
+        }
+        if ($request->filled('filter_price')){
+            $productQuery->filter_price = $request->input('filter_price');
+            if ($productQuery->filter_price == 'dear first'){
+                $productQuery->orderBy('price',  'desc');
+            }else{
+                $productQuery->orderBy('price',  'asc');
+            }
+        }
+        if ($request->filled('brand')){
+            $checkedBrands = $request->brand;
+            $productQuery->whereIn('brand', $checkedBrands);
+        }
         $brand = new ShopController();
         $brands = $brand->brandAdd();
+        $products = $productQuery->paginate(6)->withPath("?" . $request->getQueryString());
         return view('shop', ['products' => $products, 'brands' => $brands]);
-    }
-
-    public function titleFilter(Request $request)
-    {
-        $search = new Shop;
-        $search->title_product = $request->input('title');
-        $products = Shop::where('title_product', 'LIKE', "%{$search->title_product}%")->get();
-        $brand = new ShopController();
-        $brands = $brand->brandAdd();
-        return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
-    }
-
-    public function filterPrice(Request $request)
-    {
-        $searchMaxMin = new Shop;
-        $searchMaxMin->title_product = $request->input('filter_price');
-        if ($searchMaxMin->title_product == 'dear first'){
-            $products = Shop::orderBy('price',  'desc')->get();
-        }else{
-            $products = Shop::orderBy('price',  'asc')->get();
-        }
-        $brand = new ShopController();
-        $brands = $brand->brandAdd();
-        return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
-    }
-
-    public function brandFilter(Request $request)
-    {
-        $checkedBrands = $request->brand;
-        if (!isset($checkedBrands)){
-            return redirect('shop');
-        }else{
-            $products = Shop::whereIn('brand', $checkedBrands)->get();
-            $brand = new ShopController();
-            $brands = $brand->brandAdd();
-            return view('layouts.search-title', ['products' => $products, 'brands' => $brands]);
-        }
     }
 
     public function brandAdd()
@@ -60,5 +39,11 @@ class ShopController extends Controller
             $brands = Null;
         }
         return $brands;
+    }
+
+    public function getProduct($id)
+    {
+        $product = Shop::find($id);
+        return view('layouts.product', compact('product'));
     }
 }

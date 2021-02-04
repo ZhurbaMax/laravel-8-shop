@@ -75,7 +75,7 @@ img.card-img-top.cart-img {
     background: #f3f3f345;
 }
 i.fa.fa-shopping-cart {
-    font-size: 20px;
+    font-size: 21px;
 }
 .order-total {
     text-align: right;
@@ -105,4 +105,28 @@ li.orders a {
 }
 span.span-order {
     font-weight: 700;
+}
+h5.card-title {
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+span.count-header-cart {
+    position: relative;
+    top: -12px;
+    left: 15px;
+    color: #ccc;
+}
+span.count-header-cart {
+    position: relative;
+    top: 7px;
+    left: 6px;
+    background: #9a9d9a;
+    color: #ffffff;
+    width: 12px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    line-height: 16px;
 }

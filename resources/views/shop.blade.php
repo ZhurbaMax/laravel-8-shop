@@ -13,28 +13,26 @@
     <div class="row">
         <div class="col-xl-3">
             <div class="col-xl-12">
-                <form method="get" action="/search-title">
+                <form method="get" action="{{ route('filter.shop') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputEmail1">Search for title</label>
-                        <input type="title" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
+                        <input type="text" name="title_product" value="{{ request()->title_product }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
                     </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-                <form method="get" action="/filter-price">
-                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Filter price</label>
                         <select class="form-control"  name="filter_price" id="exampleFormControlSelect1">
+                            <option selected disabled>Select filter</option>
                             <option>cheap at first</option>
                             <option>dear first</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Go</button>
+                    @if(isset($brands))
+                        @include('layouts.brand')
+                    @endif
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
-                @if(isset($brands))
-                    @include('layouts.brand')
-                @endif
             </div>
         </div>
         <div class="col-xl-9">
@@ -42,16 +40,16 @@
                 @foreach ($products as $product )
                 <div class="col-xl-4">
                     <div class="card">
-                        <img class="card-img-top" src=" {{ asset('storage') . '/'. $product->image }} ">
+                        <a href="{{ route('get.product', $product) }}" class="btn btn-light"><img class="card-img-top" src=" {{ asset('storage') . '/'. $product->image }} "></a>
                         <div class="card-body">
-                            <h5 class="card-title"> {{ $product->title_product }} </h5>
+                            <p class="price-prod-item">Price {{ $product->price }} $</p>
                             <p class="card-text brand"> {{ $product->brand }} </p>
                             <p class="card-text"> {{ $product->description }} </p>
-                            <a class="btn btn-primary">Price {{ $product->price }} $</a>
                             <form action="{{ route('cart.add', $product) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Add card</button>
                             </form>
+                            <a href="{{ route('get.product', $product) }}" class="btn-light"><h5 class="card-title"> {{ $product->title_product }} </h5></a>
                         </div>
                     </div>
                 </div>
