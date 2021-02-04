@@ -1886,13 +1886,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: [],
-      quantity: 0
+      count: 0
     };
   },
+  mounted: function mounted() {
+    this.getHashtags();
+  },
   methods: {
-    addCartProducts: function addCartProducts() {
-      alert('what are you looking at? close immediately!!!');
+    getHashtags: function getHashtags() {
+      var _this = this;
+
+      axios.post('/cart/getCountCart').then(function (respons) {
+        console.log(respons.data);
+        _this.count = respons.data.orderCount;
+      });
     }
   }
 });
@@ -41284,15 +41291,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "button",
-    {
-      staticClass: "btn btn-success",
-      attrs: { type: "submit" },
-      on: { click: _vm.addCartProducts }
-    },
-    [_vm._v("Add card ")]
-  )
+  return _c("span", { staticClass: "count-header-cart" }, [
+    _vm._v(_vm._s(_vm.count))
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

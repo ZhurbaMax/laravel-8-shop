@@ -41,6 +41,7 @@ Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name(
 Route::get('/cart/order', [App\Http\Controllers\CartController::class, 'order'])->name('cart.order');
 Route::post('/cart/add/{id}', [App\Http\Controllers\CartController::class, 'cartAdd'])->name('cart.add');
 Route::post('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cartRemove'])->name('cart.remove');
+Route::post('/cart/getCountCart', [App\Http\Controllers\CartController::class, 'getCountCart']);
 //Checkout
 Route::get('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'cartCheckout'])->name('cart.checkout');
 Route::post('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'checkoutConfirm'])->name('checkout.confirm');

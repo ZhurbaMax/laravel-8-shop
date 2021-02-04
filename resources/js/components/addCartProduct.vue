@@ -1,19 +1,24 @@
 <template>
-    <button @click="addCartProducts" type="submit" class="btn btn-success">Add card </button>
+     <span class="count-header-cart">{{ count }}</span>
 </template>
 
 <script>
     export default {
-        data: function(){
+        data() {
             return{
-                product: [],
-                quantity: 0,
+                count: 0,
             }
         },
+        mounted() {
+            this.getHashtags()
+        },
         methods: {
-            addCartProducts(){
-            alert('what are you looking at? close immediately!!!');
-            }
+            getHashtags(){
+                axios.post('/cart/getCountCart').then(( respons )=>{
+                    console.log(respons.data);
+                    this.count = respons.data.orderCount;
+                });
+            },
         },
     }
 </script>

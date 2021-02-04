@@ -12,10 +12,10 @@
                     @endif
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-6">
                 <img class="card-img-top" src=" {{ asset('storage') . '/'. $product->image }} ">
             </div>
-            <div class="col-xl-8">
+            <div class="col-xl-6">
                 <div class="card-body">
                     <h5 class="card-title"> {{ $product->title_product }} </h5>
                     <p class="card-text brand"> {{ $product->brand }} </p>

@@ -75,7 +75,7 @@ img.card-img-top.cart-img {
     background: #f3f3f345;
 }
 i.fa.fa-shopping-cart {
-    font-size: 21px;
+    font-size: 26px;
 }
 .order-total {
     text-align: right;
@@ -118,15 +118,20 @@ span.count-header-cart {
 }
 span.count-header-cart {
     position: relative;
-    top: 7px;
-    left: 6px;
-    background: #9a9d9a;
+    top: 10px;
+    left: 9px;
+    background: #33ca33;
     color: #ffffff;
-    width: 12px;
+    width: 13px;
     height: 16px;
     border-radius: 50%;
     display: block;
     text-align: center;
     font-size: 10px;
     line-height: 16px;
+    font-weight: bolder;
+}
+a.nav-link.cart {
+    position: absolute;
+    top: -7px;
 }

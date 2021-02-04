@@ -44,7 +44,6 @@
                         <div class="card-body">
                             <p class="price-prod-item">Price {{ $product->price }} $</p>
                             <p class="card-text brand"> {{ $product->brand }} </p>
-                            <p class="card-text"> {{ $product->description }} </p>
                             <form action="{{ route('cart.add', $product) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Add card</button>

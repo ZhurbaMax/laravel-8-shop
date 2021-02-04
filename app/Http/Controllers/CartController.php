@@ -52,4 +52,13 @@ class CartController extends Controller
         $order->products()->detach($id_product);
         return back()->with('success', 'The product has been successfully removed from the cart');
     }
+
+    public function getCountCart()
+    {
+        $orderId = session('orderId');
+        if (!is_null($orderId)){
+            $order = Order::find($orderId);
+        }
+        return response()->json(['orderCount'=>count($order->products)],200);
+    }
 }

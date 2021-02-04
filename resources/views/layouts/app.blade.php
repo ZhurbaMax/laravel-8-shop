@@ -81,8 +81,8 @@
                                 <a class="nav-link" href="{{ route('admin') }}">Admin</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cart.page') }}">
-                                    <span class="count-header-cart">0</span>
+                                <a class="nav-link cart" href="{{ route('cart.page') }}">
+                                    <add-cart-product></add-cart-product>
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </li>
