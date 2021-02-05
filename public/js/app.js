@@ -1923,8 +1923,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "cartComponent"
+  data: function data() {
+    return {
+      productsVue: []
+    };
+  },
+  mounted: function mounted() {
+    this.getorder();
+  },
+  methods: {
+    getorder: function getorder() {
+      var _this = this;
+
+      axios.post('/cart').then(function (respons) {
+        console.log(respons.data);
+        _this.productsVue = respons.data.order.products;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -41318,14 +41371,120 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.productsVue, function(product) {
+          return _c("tr", [
+            _c("td", [_vm._v(_vm._s(product.title_product))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(product.price) + " $")]),
+            _vm._v(" "),
+            _c("td", [
+              _c("img", {
+                staticClass: "card-img-top cart-img",
+                attrs: { src: "storage/" + product.image }
+              })
+            ]),
+            _vm._v(" "),
+            _c("th", [
+              _c("i", {
+                staticClass: "fa fa-plus",
+                attrs: { "aria-hidden": "true" },
+                on: {
+                  click: function($event) {
+                    product.pivot.count++
+                  }
+                }
+              }),
+              _vm._v(
+                "\n                " +
+                  _vm._s(product.pivot.count) +
+                  "\n                "
+              ),
+              _c("i", {
+                staticClass: "fa fa-minus",
+                attrs: { "aria-hidden": "true" },
+                on: {
+                  click: function($event) {
+                    product.pivot.count--
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(2, true)
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(3)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("gregegegerge")])])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xl-12" }, [
+        _c("div", { staticClass: "h2 mt-5 mb-5" }, [_vm._v(" Cart ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Number")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Delete")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "submit" } },
+        [_vm._v("Delete")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "order-total" }, [
+      _c("p", [
+        _vm._v("Order total: "),
+        _c("span", { staticClass: "total-price" }, [_vm._v("12000 $")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-xl-12 right-bott" }, [
+        _c("a", { staticClass: "btn btn-success", attrs: { href: "#" } }, [
+          _vm._v("Сheckout")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

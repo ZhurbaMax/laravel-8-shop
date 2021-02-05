@@ -135,3 +135,33 @@ a.nav-link.cart {
     position: absolute;
     top: -7px;
 }
+a.btn.btn-success.admin {
+    margin-bottom: 30px;
+}
+a.btn.btn-danger.reset {
+    margin: 20px 0;
+}
+a.btn.btn-secondary.order-delete {
+    color: #fff;
+    font-size: 16px;
+    padding: 0 5px;
+    margin: 0 20px;
+}
+button.btn.btn-success.cart {
+    background: transparent;
+    border: none;
+    color: #5b5b5b;
+    margin: 0;
+    display: contents;
+}
+i.fa.fa-plus, i.fa.fa-minus {
+    font-size: 12px;
+}
+span.suum-price {
+    font-weight: 900;
+    font-size: 20px;
+}
+p.price {
+    font-size: 20px;
+}
+

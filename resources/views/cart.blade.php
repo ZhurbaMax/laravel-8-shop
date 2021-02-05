@@ -29,7 +29,17 @@
                     <td>{{ $product->title_product }}</td>
                     <td>{{ $product->totalCostProductCart($product->pivot->count) }} $</td>
                     <td><img class="card-img-top cart-img" src="{{ asset('storage') . '/'. $product->image }}"></td>
-                    <th>{{ $product->pivot->count }}</th>
+                    <th>
+                        <form action="{{ route('cart.add', $product) }}" method="post" class="form-plus">
+                            @csrf
+                            <button type="submit" class="btn btn-success cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </form>
+                        {{ $product->pivot->count }}
+                        <form action="{{ route('cart.reduce', $product) }}" method="post" class="form-minus">
+                            @csrf
+                            <button type="submit" class="btn btn-success cart"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                        </form>
+                    </th>
                     <td>
                         <form method="post" class="item-form" action="{{ route('cart.remove', $product) }}">
                             @csrf
@@ -46,4 +56,6 @@
                 <a class="btn btn-success" href="{{ route('cart.checkout') }}">Сheckout</a>
             </div>
         </div>
+
+        <cart-component></cart-component>
 @endsection

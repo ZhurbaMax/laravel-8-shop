@@ -15,7 +15,24 @@ class CartController extends Controller
             if (count($order->products) == 0){
                 return view('layouts.basket_is_empty');
             }
+
              return view('cart', compact('order'));
+        }else{
+            return view('layouts.basket_is_empty');
+        }
+    }
+
+    public function cartVue()
+    {
+        $orderId = session('orderId');
+        if (!is_null($orderId)){
+            $order = Order::find($orderId);
+            if (count($order->products) == 0){
+                return view('layouts.basket_is_empty');
+            }
+            //dd(response()->json(['order'=>$order],200));
+            return response()->json(['order'=>$order],200);
+            //return view('cart', compact('order'));
         }else{
             return view('layouts.basket_is_empty');
         }
@@ -38,8 +55,23 @@ class CartController extends Controller
         }else{
             $order->products()->attach($id_product);
         }
-        //session(['orderCount'=>count($order->products)]);
         return back()->with('success', 'Product added to cart successfully');
+    }
+
+    public function cartReduce($id_product)
+    {
+        $orderId = session('orderId');
+        $order = Order::find($orderId);
+        if ($order->products->contains($id_product)){
+            $pivotRow = $order->products()->where('shop_id', $id_product)->first()->pivot;
+            if ($pivotRow->count < 2){
+                $order->products()->detach($id_product);
+            }else{
+                $pivotRow->count--;
+                $pivotRow->update();
+            }
+            return back()->with('success', 'Product Reduced to cart successfully');
+        }
     }
 
     public function cartRemove($id_product)
@@ -56,9 +88,14 @@ class CartController extends Controller
     public function getCountCart()
     {
         $orderId = session('orderId');
+        $order = [];
         if (!is_null($orderId)){
             $order = Order::find($orderId);
         }
-        return response()->json(['orderCount'=>count($order->products)],200);
+        $countProd = [];
+        foreach ($order->products as $product){
+            $countProd[] = $product->pivot->count;
+        }
+        return response()->json(['orderCount'=>array_sum($countProd)],200);
     }
 }

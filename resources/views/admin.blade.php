@@ -3,7 +3,7 @@
 @section('content')
         <div class="row">
             <div class="col-xl-12 right-bott">
-                <a class="btn btn-success" href="{{ route('addProduct') }}">Create product</a>
+                <a class="btn btn-success admin" href="{{ route('addProduct') }}">Create product</a>
             </div>
             @if(session()->get('success'))
                 <div class="alert alert-success">

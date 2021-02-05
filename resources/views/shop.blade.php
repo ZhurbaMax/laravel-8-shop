@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Filter price</label>
-                        <select class="form-control"  name="filter_price" id="exampleFormControlSelect1">
+                        <select class="form-control"  name="filter_price"  id="exampleFormControlSelect1">
                             <option selected disabled>Select filter</option>
                             <option>cheap at first</option>
                             <option>dear first</option>
@@ -30,9 +30,9 @@
                     @if(isset($brands))
                         @include('layouts.brand')
                     @endif
-
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
+                <a class="btn btn-danger reset" href="{{ route('shop') }}">Reset filter</a>
             </div>
         </div>
         <div class="col-xl-9">

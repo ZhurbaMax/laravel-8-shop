@@ -75,6 +75,9 @@
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                             </li>
                             <li class="nav-item">
@@ -96,6 +99,15 @@
                 @yield('content')
             </div>
         </main>
+        <footer>
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">{{ config('app.name', 'Laravel') }}</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat neque vel aliquet malesuada.</p>
+                    <p class="card-text"><small class="text-muted">© copyright {{ date('Y') }}</small></p>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

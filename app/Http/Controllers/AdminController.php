@@ -80,4 +80,10 @@ class AdminController extends Controller
         $orderDetail  = Order::where("id",$id)->get();
         return view('admin.order-details', ['orderDetail' => $orderDetail]);
     }
+
+    public function orderDestroy($id)
+    {
+        Order::where("id",$id)->delete();
+        return back()->with('success', 'Order removed successfully');
+    }
 }

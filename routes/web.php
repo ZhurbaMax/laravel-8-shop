@@ -19,7 +19,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Shope
+//Shop
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->name('shop');
 Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 'getProduct'])->name('get.product');
 Route::get('/filter', [App\Http\Controllers\ShopController::class, 'getShop'])->name('filter.shop');
@@ -32,17 +32,21 @@ Route::get('/edit', [App\Http\Controllers\AdminController::class, 'edit'])->name
 Route::get('/admin/product/{id}/delete', [App\Http\Controllers\AdminController::class, 'destroy'])->name('products-destroy');
 Route::get('/edit/{id}', [App\Http\Controllers\AdminController::class, 'editProduct']);
 Route::put('/update/{id}', [App\Http\Controllers\AdminController::class, 'updateProduct'])->name('edit.update');
+
 //Orders admin
 Route::get('/admin/orders',[App\Http\Controllers\AdminController::class, 'orders'])->name('admin.orders');
 Route::get('/admin/orders/{id}',[App\Http\Controllers\AdminController::class, 'detailOrder'])->name('detail.order');
+Route::get('/admin/orders/{id}/delete', [App\Http\Controllers\AdminController::class, 'orderDestroy'])->name('order.destroy');
 
 //Cart
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.page');
 Route::get('/cart/order', [App\Http\Controllers\CartController::class, 'order'])->name('cart.order');
 Route::post('/cart/add/{id}', [App\Http\Controllers\CartController::class, 'cartAdd'])->name('cart.add');
+Route::post('/cart/reduce/{id}', [App\Http\Controllers\CartController::class, 'cartReduce'])->name('cart.reduce');
 Route::post('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cartRemove'])->name('cart.remove');
 Route::post('/cart/getCountCart', [App\Http\Controllers\CartController::class, 'getCountCart']);
+Route::post('/cart', [App\Http\Controllers\CartController::class, 'cartVue'])->name('cart.vue');
+
 //Checkout
 Route::get('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'cartCheckout'])->name('cart.checkout');
 Route::post('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'checkoutConfirm'])->name('checkout.confirm');
-
