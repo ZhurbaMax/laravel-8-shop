@@ -3,11 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="{{ route('admin') }}">List product</a></li>
-                </ul>
-            </div>
+                @include('layouts/admin_menu')
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

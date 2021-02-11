@@ -38,6 +38,11 @@ Route::get('/admin/orders',[App\Http\Controllers\AdminController::class, 'orders
 Route::get('/admin/orders/{id}',[App\Http\Controllers\AdminController::class, 'detailOrder'])->name('detail.order');
 Route::get('/admin/orders/{id}/delete', [App\Http\Controllers\AdminController::class, 'orderDestroy'])->name('order.destroy');
 
+//Category admin
+Route::get('/admin/category',[App\Http\Controllers\AdminController::class, 'adminCategory'])->name('admin.category');
+Route::get('/admin/create-category',[App\Http\Controllers\AdminController::class, 'addCategory'])->name('admin.category.add');
+Route::post('/admin/category',[App\Http\Controllers\AdminController::class, 'createCategory'])->name('admin.category.create');
+
 //Cart
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.page');
 Route::get('/cart/order', [App\Http\Controllers\CartController::class, 'order'])->name('cart.order');
@@ -46,6 +51,8 @@ Route::post('/cart/reduce/{id}', [App\Http\Controllers\CartController::class, 'c
 Route::post('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'cartRemove'])->name('cart.remove');
 Route::post('/cart/getCountCart', [App\Http\Controllers\CartController::class, 'getCountCart']);
 Route::post('/cart', [App\Http\Controllers\CartController::class, 'cartVue'])->name('cart.vue');
+Route::post('/update/cart-vue', [App\Http\Controllers\CartController::class, 'updateCartVue']);
+Route::post('/delete/product-vue', [App\Http\Controllers\CartController::class, 'deleteProductVue']);
 
 //Checkout
 Route::get('/cart/checkout', [App\Http\Controllers\CheckoutController::class, 'cartCheckout'])->name('cart.checkout');

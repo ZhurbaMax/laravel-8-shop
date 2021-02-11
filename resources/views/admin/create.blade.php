@@ -3,11 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="/admin">List product</a></li>
-            </ul>
-        </div>
+            @include('layouts/admin_menu')
         <div class="col-9">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -35,6 +31,13 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
                     <input type="text" name="description" value="{{ old('description') }}"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Category</label></br>
+                    @foreach ($categories as $category )
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                        <label>{{ ucfirst($category->title_category) }}</label>
+                    @endforeach
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Upload image</label>

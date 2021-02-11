@@ -14,12 +14,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-3">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="{{ route('admin') }}">List product</a></li>
-                <li class="list-group-item"><a href="{{ route('admin.orders') }}">Orders</a></li>
-            </ul>
-        </div>
+            @include('layouts/admin_menu')
         <div class="col-xl-9">
             <div class="ordeer-total">
                 <h5>Order Detail: <span class="total-price"></span></h5>

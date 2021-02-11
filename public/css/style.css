@@ -19,7 +19,7 @@ li.list-group-item.active a {
     color: #fff;
 }
 li.list-group-item:hover {
-    background: #076fae;
+    background: #343434;
 }
 li.list-group-item:hover a{
     color: #fff;
@@ -164,4 +164,20 @@ span.suum-price {
 p.price {
     font-size: 20px;
 }
-
+.col-xl-3.admin-menu-block {
+    background: #343a40;
+    padding: 20px;
+}
+li.list-group-item {
+    background: transparent;
+    border: 1px solid #868686 !important;
+    border-radius: 0 !important;
+    margin: 5px;
+    padding: 0;
+}
+li.list-group-item a {
+    color: #fff;
+    display: block;
+    margin: 0;
+    padding: 20px;
+}

@@ -22,22 +22,6 @@ class CartController extends Controller
         }
     }
 
-    public function cartVue()
-    {
-        $orderId = session('orderId');
-        if (!is_null($orderId)){
-            $order = Order::find($orderId);
-            if (count($order->products) == 0){
-                return view('layouts.basket_is_empty');
-            }
-            //dd(response()->json(['order'=>$order],200));
-            return response()->json(['order'=>$order],200);
-            //return view('cart', compact('order'));
-        }else{
-            return view('layouts.basket_is_empty');
-        }
-    }
-
     public function cartAdd($id_product)
     {
         $orderId = session('orderId');
@@ -97,5 +81,41 @@ class CartController extends Controller
             $countProd[] = $product->pivot->count;
         }
         return response()->json(['orderCount'=>array_sum($countProd)],200);
+    }
+
+    public function cartVue()
+    {
+        $orderId = session('orderId');
+        if (!is_null($orderId)){
+            $order = Order::find($orderId);
+            if (count($order->products) == 0){
+                return view('layouts.basket_is_empty');
+            }
+            return response()->json(['order'=>$order],200);
+        }else{
+            return view('layouts.basket_is_empty');
+        }
+    }
+
+    public function updateCartVue(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $productsVue = $request->input('productsVue');
+        $order = Order::find($orderId);
+        foreach ($productsVue as $product){
+            $id_product = $product['id'];
+            $pivotRow = $order->products()->where('shop_id', $id_product)->first()->pivot;
+            $pivotRow->count = $product['pivot']['count'];
+            $pivotRow->update();
+        }
+    }
+
+    public function deleteProductVue(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $id_product = $request->input('productId');
+        $order = Order::find($orderId);
+        $result = $order->products()->detach($id_product);
+        return response()->json(['result' => $result]);
     }
 }

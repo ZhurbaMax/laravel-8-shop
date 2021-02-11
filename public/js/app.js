@@ -1917,6 +1917,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -1959,24 +1967,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      productsVue: []
+      productsVue: [],
+      orderId: 0,
+      productId: 0
     };
   },
-  mounted: function mounted() {
-    this.getorder();
+  computed: {
+    cartTotalCost: function cartTotalCost() {
+      var result = [];
+
+      var _iterator = _createForOfIteratorHelper(this.productsVue),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var product = _step.value;
+          result.push(product.price * product.pivot.count);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      result = result.reduce(function (sum, el) {
+        return sum + el;
+      });
+      return result;
+    }
+  },
+  watch: {
+    productsVue: function productsVue() {
+      console.log(1212);
+    }
   },
   methods: {
     getorder: function getorder() {
       var _this = this;
 
-      axios.post('/cart').then(function (respons) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/cart').then(function (respons) {
         console.log(respons.data);
         _this.productsVue = respons.data.order.products;
+        _this.orderId = respons.data.order.id;
+      });
+    },
+    checkPivot: function checkPivot(product) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/update/cart-vue', {
+        orderId: this.orderId,
+        productsVue: this.productsVue
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    deleteProduct: function deleteProduct(id) {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/delete/product-vue', {
+        orderId: this.orderId,
+        productId: id
+      }).then(function (response) {
+        console.log(response.data.result);
+
+        if (response.data.result) {
+          _this2.getorder();
+        }
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
+  },
+  mounted: function mounted() {
+    this.getorder();
   }
 });
 
@@ -41383,7 +41450,9 @@ var render = function() {
           return _c("tr", [
             _c("td", [_vm._v(_vm._s(product.title_product))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(product.price) + " $")]),
+            _c("td", [
+              _vm._v(_vm._s(product.price * product.pivot.count) + " $")
+            ]),
             _vm._v(" "),
             _c("td", [
               _c("img", {
@@ -41393,39 +41462,61 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("th", [
-              _c("i", {
-                staticClass: "fa fa-plus",
-                attrs: { "aria-hidden": "true" },
-                on: {
-                  click: function($event) {
-                    product.pivot.count++
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: product.pivot.count,
+                    expression: "product.pivot.count"
                   }
-                }
-              }),
-              _vm._v(
-                "\n                " +
-                  _vm._s(product.pivot.count) +
-                  "\n                "
-              ),
-              _c("i", {
-                staticClass: "fa fa-minus",
-                attrs: { "aria-hidden": "true" },
+                ],
+                attrs: { type: "number", min: "1", max: "1000" },
+                domProps: { value: product.pivot.count },
                 on: {
                   click: function($event) {
-                    product.pivot.count--
+                    return _vm.checkPivot(product)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(product.pivot, "count", $event.target.value)
                   }
                 }
               })
             ]),
             _vm._v(" "),
-            _vm._m(2, true)
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteProduct(product.id)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
           ])
         }),
         0
       )
     ]),
     _vm._v(" "),
-    _vm._m(3)
+    _c("div", { staticClass: "order-total" }, [
+      _c("p", [
+        _vm._v("Order total:\n            "),
+        _c("span", { staticClass: "total-price" }, [
+          _vm._v(_vm._s(_vm.cartTotalCost) + " $")
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -41451,7 +41542,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Image")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Number")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Quantity")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Delete")])
       ])
@@ -41461,29 +41552,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
+    return _c("div", { staticClass: "col-xl-12 right-bott" }, [
       _c(
-        "button",
-        { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-        [_vm._v("Delete")]
+        "a",
+        { staticClass: "btn btn-success", attrs: { href: "/cart/checkout" } },
+        [_vm._v("Сheckout")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "order-total" }, [
-      _c("p", [
-        _vm._v("Order total: "),
-        _c("span", { staticClass: "total-price" }, [_vm._v("12000 $")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-12 right-bott" }, [
-        _c("a", { staticClass: "btn btn-success", attrs: { href: "#" } }, [
-          _vm._v("Сheckout")
-        ])
-      ])
     ])
   }
 ]

@@ -21,4 +21,9 @@ class Shop extends Model
     {
         return $this->price * $count;
     }
+
+    public function shops()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
