@@ -23,6 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'getShop'])->name('shop');
 Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 'getProduct'])->name('get.product');
 Route::get('/filter', [App\Http\Controllers\ShopController::class, 'getShop'])->name('filter.shop');
+Route::get('/shop/{alias}', [App\Http\Controllers\ShopController::class, 'getShopCategory'])->name('shop.category');
+Route::get('/filters{alias}', [App\Http\Controllers\ShopController::class, 'getShopCategory'])->name('category.filter.shop');
 
 //Admin
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
@@ -42,6 +44,9 @@ Route::get('/admin/orders/{id}/delete', [App\Http\Controllers\AdminController::c
 Route::get('/admin/category',[App\Http\Controllers\AdminController::class, 'adminCategory'])->name('admin.category');
 Route::get('/admin/create-category',[App\Http\Controllers\AdminController::class, 'addCategory'])->name('admin.category.add');
 Route::post('/admin/category',[App\Http\Controllers\AdminController::class, 'createCategory'])->name('admin.category.create');
+Route::get('/admin/category/{id}/delete', [App\Http\Controllers\AdminController::class, 'categoryDelete'])->name('category.delete');
+Route::get('/admin/category/{id}', [App\Http\Controllers\AdminController::class, 'editCtegory']);
+Route::put('/admin/category/update/{id}', [App\Http\Controllers\AdminController::class, 'updateCategory'])->name('category.update');
 
 //Cart
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.page');

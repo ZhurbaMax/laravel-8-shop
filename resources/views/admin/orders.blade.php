@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="h2 mt-5 mb-5" style="text-align: center" > Orders </div>
+            <div class="h2 mt-5 mb-5 category-admin"> Orders </div>
         </div>
     </div>
     <div class="row">
             @include('layouts/admin_menu')
-        <div class="col-xl-9">
+        <div class="col-xl-9 admin-content">
             <div class="ordeer-total">
                 <h5>Order list: <span class="total-price"></span></h5>
                 <ul>

@@ -77,8 +77,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ route('shop') }}" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                                <div class="dropdown-menu">
+                                    @foreach ($categories as $category )
+                                        <a class="dropdown-item" href="{{ route('shop.category', $category->alias) }}">{{$category->title_category}}</a>
+                                    @endforeach
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin') }}">Admin</a>

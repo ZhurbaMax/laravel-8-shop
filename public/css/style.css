@@ -176,8 +176,40 @@ li.list-group-item {
     padding: 0;
 }
 li.list-group-item a {
-    color: #fff;
+    color: #d1d1d1;
     display: block;
     margin: 0;
     padding: 20px;
+}
+.h2.mt-5.mb-5.category-admin {
+    background: #343a40;
+    color: #d1d1d1;
+    padding: 30px;
+    text-transform: uppercase;
+}
+button.btn.add-product {
+    background: #343a40;
+    color: #d1d1d1;
+    border-radius: 0;
+    float: right;
+}
+.col-xl-9.admin-content {
+    background: #f6f6f6;
+    padding: 30px;
+}
+.page-item.active .page-link {
+    background-color: #343a40 !important;
+    border-color: #646b72 !important;
+}
+.btn.add-product {
+    background: #343a40;
+    color: #d1d1d1;
+    border-radius: 0;
+    float: right;
+}
+a.btn.add-product:hover {
+    color: #d1d1d1;
+}
+.btn.add-product:hover {
+    background: #52595f;
 }

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Http\Requests\AdminShopProduct;
 use App\Http\Requests\AdminImageProduct;
 use App\Http\Requests\ProductCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 
 class AdminController extends Controller
@@ -27,21 +28,22 @@ class AdminController extends Controller
     public function create(AdminShopProduct $request)
     {
         $path = $request->file('image')->store('uploads', 'public');
-        $product = new Shop();
+        $product = new Shop;
         $product->title_product = $request->title_product;
         $product->price = $request->price;
         $product->brand = $request->brand;
         $product->description = $request->description;
         $product->image = $path;
-
         $product->save();
+        $product->fill($request->except('categories'));
+        $product->categories()->sync($request->categories);
         return redirect('admin')->with('success', 'Product added successfully');
     }
 
     public function editProduct($id)
     {
-        $productUp  = Shop::where("id",$id)->get();
-        return view('admin.edit-product', ['productUp' => $productUp]);
+        $prodUp  = Shop::find($id);
+        return view('admin.edit-product', compact('prodUp'));
     }
 
     public function updateProduct(AdminImageProduct $request, $id_product)
@@ -59,6 +61,7 @@ class AdminController extends Controller
         $product->brand = $request->brand;
         $product->description = $request->description;
         $product->save();
+        $product->categories()->sync($request->categories, true);
         return redirect('admin')->with('success', 'Product edited successfully');
     }
 
@@ -112,4 +115,32 @@ class AdminController extends Controller
         return view('admin.create-category');
     }
 
+    public function categoryDelete($id)
+    {
+        Category::where("id",$id)->delete();
+        return back()->with('success', 'Category removed successfully');
+    }
+
+    public function editCtegory($id)
+    {
+        $categoryUp  = Category::where("id",$id)->get();
+        return view('admin.edit-category', ['categoryUp' => $categoryUp]);
+    }
+
+    public function updateCategory(UpdateCategoryRequest $request, $id)
+    {
+        $category = Category::find($id);
+        if($request->hasFile('img_category')){
+            $pathOld = $category->img_category;
+            $oldImg = public_path('storage/' . $pathOld);
+            \File::delete($oldImg);
+            $path = $request->file('img_category')->store('uploads', 'public');
+            $category->img_category = $path;
+        }
+        $category->title_category = $request->title_category;
+        $category->desc = $request->desc;
+        $category->alias = $request->alias;
+        $category->save();
+        return redirect(route('admin.category'))->with('success', 'Category edited successfully');
+    }
 }

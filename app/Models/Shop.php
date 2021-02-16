@@ -22,7 +22,7 @@ class Shop extends Model
         return $this->price * $count;
     }
 
-    public function shops()
+    public function categories()
     {
         return $this->belongsToMany(Category::class);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Null_;
 
@@ -45,5 +46,15 @@ class ShopController extends Controller
     {
         $product = Shop::find($id);
         return view('layouts.product', compact('product'));
+    }
+
+    public function getShopCategory(Request $request, $alias)
+    {
+        $category = Category::where('alias', $alias)->first();
+        $reset = $category->alias;
+        $products = $category->shops()->paginate(6);
+        $brands = $category->shops()->pluck('brand');
+        $brands = $brands->unique();
+        return view('shop-category', ['products' => $products, 'brands' => $brands, 'reset' => $reset]);
     }
 }

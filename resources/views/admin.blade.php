@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             @include('layouts/admin_menu')
-            <div class="col-xl-9">
+            <div class="col-xl-9 admin-content">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>

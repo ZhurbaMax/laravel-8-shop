@@ -81,7 +81,7 @@
                     orderId: this.orderId,
                     productsVue: this.productsVue,
                 })
-                    .then(function (response) {
+                    .then((response)=> {
                         console.log(response);
                     })
                     .catch(function (error) {
