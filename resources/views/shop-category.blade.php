@@ -23,8 +23,8 @@
                             <label for="exampleFormControlSelect1">Filter price</label>
                             <select class="form-control"  name="filter_price"  id="exampleFormControlSelect1">
                                 <option selected disabled>Select filter</option>
-                                <option>cheap at first</option>
-                                <option>dear first</option>
+                                <option @if(request()->filter_price == 'cheap at first')selected @endif >cheap at first</option>
+                                <option @if(request()->filter_price == 'dear first')selected @endif>dear first</option>
                             </select>
                         </div>
                         @if(isset($brands))
@@ -54,6 +54,8 @@
                         </div>
                     @endforeach
                         <div class="paginate">
+{{--                            {{ $pagination->render() }}--}}
+{{--                            {{ $products->render() }}--}}
                             {{ $products->links() }}
                         </div>
                 </div>

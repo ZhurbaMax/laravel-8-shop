@@ -52,7 +52,26 @@ class ShopController extends Controller
     {
         $category = Category::where('alias', $alias)->first();
         $reset = $category->alias;
-        $products = $category->shops()->paginate(6);
+        $prod = $category->shops;
+        if ($request->filled('title_product')) {
+            $titleProduct = $request->title_product;
+            $prod = $prod->filter(function ($product) use ($titleProduct) {
+                return false !== stripos($product->title_product, $titleProduct);
+            });
+        }
+        if ($request->filled('filter_price')){
+            $prod->filter_price = $request->input('filter_price');
+            if ($prod->filter_price == 'dear first'){
+                $prod = $prod->sortByDesc('price');
+            }else{
+                $prod = $prod->sortBy('price');
+            }
+        }
+        if ($request->filled('brand')){
+                  $checkedBrands = $request->brand;
+                  $prod = $prod->whereIn('brand', $checkedBrands);
+            }
+        $products = $prod->paginate(6)->withPath("?" . $request->getQueryString());
         $brands = $category->shops()->pluck('brand');
         $brands = $brands->unique();
         return view('shop-category', ['products' => $products, 'brands' => $brands, 'reset' => $reset]);
